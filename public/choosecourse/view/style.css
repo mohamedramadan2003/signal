@@ -1,0 +1,164 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* الفيديو الرئيسي */
+.main-video-container {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.main-video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* المعلومات المتعلقة بالفيديو */
+.video-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    width: 80%;
+    margin-left: 52%;
+    margin-right: 10%;
+    text-align: center;
+}
+
+.video-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+
+.video-views {
+    font-size: 14px;
+    color: #666;
+}
+
+/* زر التالي */
+.next-button {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #008CBA;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.next-button:hover {
+    color: #005f73;
+}
+
+/* الفيديوهات الأخرى */
+.related-videos {
+    margin-top: 30px;
+    width: 80%;
+    margin-left: 10%;
+    display: block;
+}
+
+.video-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.video-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* الصورة المصغرة للفيديو */
+.video-thumbnail {
+    width: 35%;
+    height: 120px;
+    overflow: hidden;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* الوصف */
+.video-description {
+    width: 65%;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: 500;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* تحسين التفاعل مع الشاشات الصغيرة */
+@media (max-width: 800px) {
+    .video-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-video {
+        width: 95%;
+    }
+
+    .related-videos {
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .video-item {
+        flex-direction: column;
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .video-thumbnail {
+        width: 100%;
+        height: 160px;
+    }
+
+    .video-description {
+        font-size: 14px;
+    }
+
+    .next-button {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .video-title {
+        font-size: 18px;
+    }
+
+    .video-views {
+        font-size: 12px;
+    }
+
+    .video-description {
+        font-size: 12px;
+    }
+
+    .video-item {
+        flex-direction: column;
+    }
+}
