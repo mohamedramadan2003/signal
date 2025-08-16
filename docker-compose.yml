@@ -1,0 +1,97 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build:
+      context: ./services/auth_service
+      dockerfile: ../../docker/common/php-fpm/Dockerfile
+    container_name: auth_service
+    restart: unless-stopped
+    volumes:
+      - ./services/auth_service:/var/www
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./services/auth_service/.env
+
+    depends_on:
+      - auth-db
+      - redis
+      - mailhog
+    networks:
+      - beetsah-network
+  
+  profile-service:
+    build:
+      context: ./services/profile_service
+      dockerfile: ../../docker/common/php-fpm/Dockerfile
+    container_name: profile_service
+    restart: unless-stopped
+    volumes:
+      - ./services/profile_service:/var/www
+    ports:
+      - "8001:8000"
+    env_file:
+      - ./services/profile_service/.env
+    depends_on:
+      - profile-db
+      - redis
+    networks:
+      - beetsah-network
+      
+  auth-db:
+    image: mysql:8
+    container_name: auth-db
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: auth_service
+      MYSQL_USER: auth_user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - auth_db_data:/var/lib/mysql
+    networks:
+      - beetsah-network
+
+  profile-db:
+    image: mysql:8
+    container_name: profile-db
+    restart: unless-stopped
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: profile_service
+      MYSQL_USER: profile_user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - profile_db_data:/var/lib/mysql
+    networks:
+      - beetsah-network
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - beetsah-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    networks:
+      - beetsah-network
+
+networks:
+  beetsah-network:
+    driver: bridge
+
+volumes:
+  auth_db_data:
+  profile_db_data:
